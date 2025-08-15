@@ -8,7 +8,7 @@ from .forms import ProductForm
 
 # Lazarchuk
 def index(request):
-    return HttpResponse("Hello, world!")
+    return render(request, 'shop/home.html')
 
 def add_product(request):
     if request.method == 'POST':
