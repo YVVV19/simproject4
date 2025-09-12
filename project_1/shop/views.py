@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -6,9 +7,18 @@ from django.http import HttpResponse
 from .models import ProductImage, Product
 from .forms import ProductForm
 
-# Lazarchuk
 def index(request):
-    return render(request, 'shop/home.html')
+    data = Product.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(data, 1)
+    current_page = paginator.page(int(page))
+
+    return render(request, 'shop/base.html', {"data": current_page})
+
+def product_page(request, product_id):
+    product = Product.objects.get(id=product_id)
+    return render(request, 'shop/product_page.html', {"product": product})
+
 
 def add_product(request):
     if request.method == 'POST':
@@ -42,4 +52,3 @@ def edit_product(request, product_id):
     else:
         form = ProductForm(instance=product)
         return render(request, 'Shop/edit_product.html', {"form": form})
-# ---

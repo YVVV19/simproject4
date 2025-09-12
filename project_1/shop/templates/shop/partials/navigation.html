@@ -1,0 +1,29 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'shop/css/navigation.css' %}">
+<nav class="navigation">
+    <span class="logo-title">
+        <a href="/" class="home-button">Market</a>
+        <img src="{% static 'shop/images/market.svg' %}" class="home-logo">
+    </span>
+    <span class="nav-links">
+        {% if user.is_authenticated %}
+            <span class="logo-title">
+                <a href="/profile">Profile</a>
+                <img src="{% static 'shop/images/profile.svg' %}" class="logo">
+            </span>
+            <span class="logo-title">
+                <a href="/logout">Logout</a>
+                <img src="{% static 'shop/images/logout.svg' %}" class="logo">
+            </span>
+        {% else %}
+            <span class="logo-title">
+                <a href="/registration">Registration</a>
+                <img src="{% static 'shop/images/registration.svg' %}" class="logo">
+            </span>
+            <span class="logo-title">
+                <a href="/login">Login</a>
+                <img src="{% static 'shop/images/login.svg' %}" class="logo">
+            </span>
+        {% endif %}
+    </span>
+</nav>
