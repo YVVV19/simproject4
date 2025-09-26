@@ -13,19 +13,20 @@ def index(request):
     categories = Category.objects.all()
     data = Product.objects.all()
     page = request.GET.get('page', 1)
-    paginator = Paginator(data, 30)
+    paginator = Paginator(data, 15)
     current_page = paginator.page(int(page))
     return render(request, 'shop/base.html', {"data": current_page, "categories": categories})
+
 
 def catalog(request, category_slug):
     categories = Category.objects.all()
     if category_slug == "all":
-        data = Product.objects.all()
+        return redirect('/')
     else:
         data = Product.objects.filter(category__slug=category_slug)
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(data, 30)
+    paginator = Paginator(data, 15)
     current_page = paginator.page(int(page))
 
     return render(request, 'shop/base.html', {
@@ -54,6 +55,7 @@ def add_product(request):
         form = ProductForm()
     return render(request, 'shop/add_product.html', {"form": form})
 
+
 def edit_product(request, product_id):
     product = Product.objects.get(id=product_id)
     if request.method == "POST":
@@ -70,7 +72,6 @@ def edit_product(request, product_id):
     else:
         form = ProductForm(instance=product)
         return render(request, 'shop/edit_product.html', {"form": form})
-
 
 
 def register(request):

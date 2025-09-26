@@ -52,11 +52,9 @@ from shop.models import Product
 
 
 def cart_view(request):
-    """Сторінка корзини"""
     if request.user.is_authenticated:
         cart_items = Cart.objects.filter(user=request.user)
     else:
-        # створюємо session_key, якщо ще нема
         if not request.session.session_key:
             request.session.create()
         cart_items = Cart.objects.filter(session_key=request.session.session_key)
@@ -69,7 +67,6 @@ def cart_view(request):
 
 
 def cart_add(request, product_slug):
-    """Додати товар у корзину"""
     product = get_object_or_404(Product, slug=product_slug)
 
     if request.user.is_authenticated:
@@ -93,14 +90,12 @@ def cart_add(request, product_slug):
 
 
 def cart_remove(request, cart_id):
-    """Видалити товар із корзини"""
     cart = get_object_or_404(Cart, id=cart_id)
     cart.delete()
     return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
 def cart_change(request, cart_id):
-    """Змінити кількість товару"""
     cart = get_object_or_404(Cart, id=cart_id)
     if request.method == "POST":
         try:

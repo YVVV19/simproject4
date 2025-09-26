@@ -5,4 +5,7 @@ from .models import Order
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['name', 'phone', 'email', 'address']
+        fields = ['phone_number', 'requires_delivery', 'payment_on_get']
+
+    name = forms.CharField(required=False, label='Ім’я')
+    delivery_address = forms.CharField(required=False, label='Адреса доставки')

@@ -1,0 +1,84 @@
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #333;
+}
+
+.cart_table {
+    width: 100%;
+    max-width: 1000px;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,01);
+}
+
+.cart_table_head {
+    background: #333;
+    color: #fff;
+    text-align: left;
+}
+
+.cart_table_head th {
+    padding: 12px;
+    font-size: 1rem;
+}
+
+.cart_table_body td {
+    padding: 12px;
+    border-top: none;
+    vertical-align: middle;
+}
+
+input[type="number"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-align: right;
+}
+
+.table_button {
+    padding: 6px 12px;
+    margin-left: 5px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 09rem;
+    transition: background-color 03s, transform 03s;
+}
+
+.table_button:hover {
+    background-color: #501d40ff;
+    transform: scale(105);
+}
+
+p {
+    margin-top: 15px;
+    font-size: 1rem;
+}
+
+p strong {
+    color: #333;
+}
+
+
+.order {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 16px;
+    background: #a70972ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: background 03s, transform 03s;
+}
+
+.order:hover {
+    background: #501d40ff;
+    transform: scale(1.05);
+}

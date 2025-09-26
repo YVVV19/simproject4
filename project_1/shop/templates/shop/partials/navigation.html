@@ -8,20 +8,25 @@
     <span class="nav-links">
         {% if user.is_authenticated %}
             <span class="logo-title">
-                <a href="/profile">Profile</a>
-                <img src="{% static 'shop/images/profile.svg' %}" class="logo">
+                <a href="{% url "carts:cart_view" %}">Кошик</a>
+                <img src="{% static 'shop/images/cart.svg' %}" class="logo">
             </span>
             <span class="logo-title">
-                <a href="/logout">Logout</a>
-                <img src="{% static 'shop/images/logout.svg' %}" class="logo">
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-button">
+                        Вихід
+                        <img src="{% static 'shop/images/logout.svg' %}" class="logo">
+                    </button>
+                </form>
             </span>
         {% else %}
             <span class="logo-title">
-                <a href="/register">Registration</a>
+                <a href="/register">Зареєструватися</a>
                 <img src="{% static 'shop/images/registration.svg' %}" class="logo">
             </span>
             <span class="logo-title">
-                <a href="/accounts/login">Login</a>
+                <a href="/accounts/login">Увійти</a>
                 <img src="{% static 'shop/images/login.svg' %}" class="logo">
             </span>
         {% endif %}

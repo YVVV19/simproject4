@@ -95,14 +95,14 @@ button:hover {
   transform: scale(1.1);
 }
 
-footer {
+.footer {
   background-color: #333;
   color: #fff;
   text-align: center;
   padding: 10px;
 }
 
-footer p {
+.footer p {
   margin: 0;
 }
 

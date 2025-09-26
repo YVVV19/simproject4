@@ -1,16 +1,19 @@
+{% load static%}
 <!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Моя корзина</title>
-    {% comment %} <link rel="stylesheet" href="{% static 'css/styles.css' %}"> {% endcomment %}
+    <title>Market - Cart</title>
+    <link rel="stylesheet" href="{% static 'carts/css/cart.css' %}">
 </head>
 <body>
+    {% comment %} {% include 'shop/partials/navigation.html' %} {% endcomment %}
+    <main>
     <h1>Ваша корзина</h1>
 
     {% if cart_items %}
-        <table border="1" cellpadding="8" cellspacing="0">
-            <thead>
+        <table class="cart-table">
+            <thead class="cart_table_head">
                 <tr>
                     <th>Назва товару</th>
                     <th>Кількість</th>
@@ -19,23 +22,23 @@
                     <th>Дії</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="cart_table_body">
                 {% for item in cart_items %}
                 <tr>
                     <td>{{ item.product.name }}</td>
                     <td>
-                        <form method="post" action="{% url 'carts:change_item' item.id %}">
+                        <form method="post" action="{% url 'carts:cart_change' item.id %}">
                             {% csrf_token %}
                             <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width: 60px;">
-                            <button type="submit">Оновити</button>
+                            <button type="submit" class="table_button">Оновити</button>
                         </form>
                     </td>
                     <td>{{ item.product.price }} грн</td>
-                    <td>{{ item.total_price }} грн</td>
+                    <td>{{ item.get_total_price }} грн</td>
                     <td>
-                        <form method="post" action="{% url 'carts:remove_item' item.id %}">
+                        <form method="post" action="{% url 'carts:cart_remove' item.id %}">
                             {% csrf_token %}
-                            <button type="submit">Видалити</button>
+                            <button type="submit" class="table_button">Видалити</button>
                         </form>
                     </td>
                 </tr>
@@ -46,9 +49,10 @@
         <p><strong>Загальна кількість товарів:</strong> {{ cart_items.total_quantity }}</p>
         <p><strong>Загальна сума:</strong> {{ cart_items.total_price }} грн</p>
 
-        <a href="{% url 'orders:checkout' %}">Перейти до оформлення замовлення</a>
+        <a class="order" href="{% url 'orders:create_order' %}">Перейти до оформлення замовлення</a>
     {% else %}
         <p>Ваша корзина порожня.</p>
     {% endif %}
+    </main>
 </body>
 </html>

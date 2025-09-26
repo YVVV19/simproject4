@@ -38,6 +38,21 @@
     align-items: center;
     gap: 2px;
 }
+.logout-button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.logout-button:hover {
+    color: #501d40;
+}
 
 .logo-title a{
     text-decoration: none;

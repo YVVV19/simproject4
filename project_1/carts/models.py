@@ -3,7 +3,7 @@ from django.db import models
 
 class CartQuerySet(models.QuerySet):
     def total_price(self):
-        return sum(cart.products_price() for cart in self)
+        return sum(cart.get_total_price() for cart in self)
 
     def total_quantity(self):
         if self:
@@ -24,5 +24,5 @@ class Cart(models.Model):
 
     objects = CartQuerySet.as_manager()
 
-    def products_price(self):
-        return round(self.product_price.price * self.quantity, 2)
+    def get_total_price(self):
+        return round(self.product.price * self.quantity, 2)

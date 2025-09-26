@@ -17,7 +17,7 @@
             <ul class="category-list">
                 {% for category in categories %}
                     <li class="category-item">
-                        <a href="{% url "catalog_page" category.slug %}">{{ category.name }}</a>
+                        <a href="{% url "shop:catalog_page" category.slug %}">{{ category.name }}</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -25,7 +25,7 @@
         <div class="products_container">
             {% for product in data %}
             <div class="product_item">
-                <a href="{% url 'product_page' product.slug %}">
+                <a href="{% url 'shop:product_page' product.slug %}">
                     {% if product.images.all %}
                         <img src="{{ product.images.all.0.image_file.url }}" alt="{{ product.name }}">
                     {% else %}
@@ -44,24 +44,24 @@
             </div>
             {% endfor %}
         </div>
-        <div class="pagination">
-            {% if data.has_previous %}
-                <a href="?page={{ data.previous_page_number }}">⬅ Попередня</a>
-            {% endif %}
-
-            {% for num in data.paginator.page_range %}
-                {% if data.number == num %}
-                    <strong>{{ num }}</strong>
-                {% else %}
-                    <a href="?page={{ num }}">{{ num }}</a>
-                {% endif %}
-            {% endfor %}
-
-            {% if data.has_next %}
-                <a href="?page={{ data.next_page_number }}">Наступна ➡</a>
-            {% endif %}
-        </div>
     </main>
+    <div class="pagination">
+        {% if data.has_previous %}
+            <a href="?page={{ data.previous_page_number }}">⬅ Попередня</a>
+        {% endif %}
+
+        {% for num in data.paginator.page_range %}
+            {% if data.number == num %}
+                <strong>{{ num }}</strong>
+            {% else %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if data.has_next %}
+            <a href="?page={{ data.next_page_number }}">Наступна ➡</a>
+        {% endif %}
+    </div>
     {% include 'shop/partials/footer.html' %}
 </body>
 </html>
