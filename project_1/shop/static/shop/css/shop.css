@@ -67,6 +67,7 @@ body {
     gap: 20px;
 }
 
+/* Товар */
 .product_item {
     background: #fff;
     border: 1px solid #ddd;
@@ -129,6 +130,7 @@ body {
     transform: scale(1.05);
 }
 
+/* Пагінація */
 .pagination {
     display: flex;
     justify-content: center;
@@ -147,4 +149,15 @@ body {
 .pagination strong {
     background-color: #a70972ff;
     color: white;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .site-main {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
 }
