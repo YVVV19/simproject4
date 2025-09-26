@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Моя корзина</title>
+    {% comment %} <link rel="stylesheet" href="{% static 'css/styles.css' %}"> {% endcomment %}
+</head>
+<body>
+    <h1>Ваша корзина</h1>
+
+    {% if cart_items %}
+        <table border="1" cellpadding="8" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Назва товару</th>
+                    <th>Кількість</th>
+                    <th>Ціна за одиницю</th>
+                    <th>Сума</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>
+                        <form method="post" action="{% url 'carts:change_item' item.id %}">
+                            {% csrf_token %}
+                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width: 60px;">
+                            <button type="submit">Оновити</button>
+                        </form>
+                    </td>
+                    <td>{{ item.product.price }} грн</td>
+                    <td>{{ item.total_price }} грн</td>
+                    <td>
+                        <form method="post" action="{% url 'carts:remove_item' item.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Видалити</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p><strong>Загальна кількість товарів:</strong> {{ cart_items.total_quantity }}</p>
+        <p><strong>Загальна сума:</strong> {{ cart_items.total_price }} грн</p>
+
+        <a href="{% url 'orders:checkout' %}">Перейти до оформлення замовлення</a>
+    {% else %}
+        <p>Ваша корзина порожня.</p>
+    {% endif %}
+</body>
+</html>

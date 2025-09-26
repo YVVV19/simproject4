@@ -12,10 +12,20 @@
 <body>
     {% include 'shop/partials/navigation.html' %}
     <main class="site-main">
+        <aside class="sidebar">
+            <h2>Категорії товарів:</h2>
+            <ul class="category-list">
+                {% for category in categories %}
+                    <li class="category-item">
+                        <a href="{% url "catalog_page" category.slug %}">{{ category.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </aside>
         <div class="products_container">
             {% for product in data %}
             <div class="product_item">
-                <a href="product/{{ product.id }}">
+                <a href="{% url 'product_page' product.slug %}">
                     {% if product.images.all %}
                         <img src="{{ product.images.all.0.image_file.url }}" alt="{{ product.name }}">
                     {% else %}

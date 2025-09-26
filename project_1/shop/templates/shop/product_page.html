@@ -24,7 +24,10 @@
 
             <div class="info">
                 <p class="price"><strong>Price:</strong> {{ product.price }}₴</p>
-                <button class="buy-button">Buy</button>
+                <form method="post" action="{% url 'carts:cart_add' product.slug %}">
+                    {% csrf_token %}
+                    <button type="submit" class="buy-button">Buy</button>
+                </form>
                 <p class="description">{{ product.description }}</p>
             </div>
         </div>
