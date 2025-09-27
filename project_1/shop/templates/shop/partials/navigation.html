@@ -22,6 +22,10 @@
             </span>
         {% else %}
             <span class="logo-title">
+                <a href="{% url "carts:cart_view" %}">Кошик</a>
+                <img src="{% static 'shop/images/cart.svg' %}" class="logo">
+            </span>
+            <span class="logo-title">
                 <a href="/register">Зареєструватися</a>
                 <img src="{% static 'shop/images/registration.svg' %}" class="logo">
             </span>
