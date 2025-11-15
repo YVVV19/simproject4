@@ -12,6 +12,11 @@
                 <img src="{% static 'shop/images/cart.svg' %}" class="logo">
             </span>
             <span class="logo-title">
+            <span class="logo-title">
+                <a href="{% url 'shop:user_profile' request.user.username %}">Профіль</a>
+                <img src="{% static 'shop/images/profile.svg' %}" class="logo">
+            </span>
+            <span class="logo-title">
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button type="submit" class="logout-button">

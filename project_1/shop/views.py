@@ -1,13 +1,21 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import login_required
+
 
 from django.shortcuts import render
 from django.http import HttpResponse
 
 from .models import ProductImage, Product, Category
+from carts.models import Cart
 from .forms import ProductForm
+from .forms import CustomUserCreationForm
+from django.contrib.auth.models import User
 
+def admin_required(view_function):
+    return user_passes_test(lambda u: u.is_superuser)(view_function)
 
 def index(request):
     categories = Category.objects.all()
@@ -16,7 +24,6 @@ def index(request):
     paginator = Paginator(data, 15)
     current_page = paginator.page(int(page))
     return render(request, 'shop/base.html', {"data": current_page, "categories": categories})
-
 
 def catalog(request, category_slug):
     categories = Category.objects.all()
@@ -38,7 +45,7 @@ def product_page(request, product_slug):
     product = Product.objects.get(slug=product_slug)
     return render(request, 'shop/product_page.html', {"product": product})
 
-
+@admin_required
 def add_product(request):
     if request.method == 'POST':
         if "add" in request.POST:
@@ -55,7 +62,7 @@ def add_product(request):
         form = ProductForm()
     return render(request, 'shop/add_product.html', {"form": form})
 
-
+@admin_required
 def edit_product(request, product_id):
     product = Product.objects.get(id=product_id)
     if request.method == "POST":
@@ -76,10 +83,21 @@ def edit_product(request, product_id):
 
 def register(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("login")
     else:
-        form = UserCreationForm()
-    return render(request, "shop/register.html", {"form": form})
+        form = CustomUserCreationForm()
+    return render(request, "registration/register.html", {"form": form})
+
+@login_required
+def user_profile(request, username):
+    if request.user.is_authenticated:
+        cart_items = Cart.objects.filter(user=request.user)
+    user = User.objects.get(username=username)
+    return render(request, 'shop/user_profile.html', {"profile_user": user,
+                                                      "cart_items": cart_items})
+
+def about(request):
+    return render(request, 'shop/about.html')

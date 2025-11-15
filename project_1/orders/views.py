@@ -34,7 +34,7 @@ def create_order(request):
                     quantity=item.quantity
                 )
             cart_items.delete()
-            return redirect('order_success')
+            return redirect('/orders/success')
     else:
         initial = {'name': user.username} if user else {}
         form = OrderForm(initial=initial)

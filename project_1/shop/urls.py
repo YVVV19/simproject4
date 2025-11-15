@@ -10,6 +10,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+    path('profile/<str:username>/', views.user_profile, name='user_profile'),
+    path('about/', views.about, name='about'),
     path('', views.index, name='main_page'),
     path('add_product', views.add_product, name='add_product'),
     path('edit_product/<int:product_id>/', views.edit_product, name='edit_product'),

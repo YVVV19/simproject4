@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Market - About</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css"
+        integrity="sha512-q6WgHqiHlKyOqslT/lgBgodhd03Wp4BEqKeW6nNtlOY4quzyG3VoQKFrieaCeSnuVseNKRGpGeDU3qPmabCANg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'shop/css/shop.css' %}">
+</head>
+<body>
+    {% include 'shop/partials/navigation.html' %}
+    <main class="site-main about-main">
+        <h1>About Our Market</h1>
+        <p>Welcome to our online market! We are dedicated to providing you with the best products at competitive prices. Our mission is to make shopping easy and enjoyable for everyone.</p>
+        <p>Our team works hard to source high-quality items and ensure that you have a seamless shopping experience. Thank you for choosing us for your shopping needs!</p>
+    </main>
+    {% include 'shop/partials/footer.html' %}
+</body>
+</html>

@@ -1,17 +1,25 @@
-{% load static%}
+{% load static %}
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Market - Cart</title>
+    <title>Market - Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/3.0.1/modern-normalize.min.css"
+          integrity="sha512-q6WgHqiHlKyOqslT/lgBgodhd03Wp4BEqKeW6nNtlOY4quzyG3VoQKFrieaCeSnuVseNKRGpGeDU3qPmabCANg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'shop/css/product_page.css' %}">
     <link rel="stylesheet" href="{% static 'carts/css/cart.css' %}">
 </head>
 <body>
     {% include 'shop/partials/navigation.html' %}
-    <main>
-    <h1>Ваша корзина</h1>
-
-    {% if cart_items %}
+    <main class="site-main">
+        <h1 class="name">Привіт, {{ profile_user.username }}!</h1>
+        <div class="profile-info">
+            <p><strong>Username:</strong> {{ profile_user.username }}</p>
+            <p><strong>Email:</strong> {{ profile_user.email }}</p>
+        </div>
+        {% if cart_items %}
+        <h1>Ваш кошик</h1>
         <table class="cart-table">
             <thead class="cart_table_head">
                 <tr>
@@ -51,7 +59,7 @@
 
         <a class="order" href="{% url 'orders:create_order' %}">Перейти до оформлення замовлення</a>
     {% else %}
-        <p>Ваша корзина порожня.</p>
+        <h1>Ваша корзина порожня.</h1>
     {% endif %}
     </main>
     {% include 'shop/partials/footer.html' %}
